@@ -1,0 +1,82 @@
+.body_profile {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    margin: 16px;
+}
+
+h2 {
+    margin-top: 48px;
+}
+
+img {
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+button {
+    width: 100%;
+    margin: 6px;
+    padding: 10px 0;
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.description-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.description-container p,
+.description-container textarea {
+    margin-bottom: 48px;
+}
+
+.description-container textarea {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    font-size: 1.2rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.signout-container {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.signout-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.signout-container button {
+    width: 100%;
+    margin: 6px;
+    padding: 10px 0;
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 5px;
+    cursor: pointer;
+}

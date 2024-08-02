@@ -1,0 +1,110 @@
+.detail_post_body {
+    max-width: 800px;
+    width: 100%;
+    padding: 48px 20px; /* Add some default padding */
+}
+
+.post_user_info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%; /* Make it responsive */
+    max-width: 800px; /* Max width for larger screens */
+    height: fit-content;
+    background-color: gray;
+    padding: 16px; /* Add padding */
+    box-sizing: border-box; /* Include padding in the width calculation */
+    border-radius: 10px 10px 0 0 ;
+}
+
+.post_user_info img {
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 16px; /* Margin on the right to separate the image and text */
+}
+
+.post_buttons {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.button_blue {
+    width: 80px;
+    background-color: rgb(0, 140, 255);
+}
+
+.button_red {
+    width: 80px;
+    background-color: crimson;
+}
+
+.post_user_info h3 {
+    font-size: 1.2rem; /* Responsive font size */
+}
+
+.post_info {
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    width: 100%; /* Make it responsive */
+}
+
+.post_image img {
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    border-radius: 0 0 10px 10px;
+}
+
+.post_writings {
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* Make it responsive */
+    max-width: 740px; /* Max width for larger screens */
+    box-sizing: border-box; /* Include padding in the width calculation */
+    font-size: 1.2rem; /* Responsive font size */
+}
+
+.post_writings h3 {
+    margin-top: 0;
+    margin-bottom: 8px; /* Space between title and description */
+}
+
+
+
+@media (max-width: 600px) {
+
+    .detail_post_body {
+        width: 100vw;
+        padding: 0;
+    }
+
+    .post_user_info {
+        padding: 0 8px; /* Add padding */
+    }
+
+    .post_user_info img {
+        width: 40px; /* Smaller image */
+        height: 40px; /* Smaller image */
+    }
+
+    .buttons_body button {
+        width: 60px;
+        height: 30px;
+        font-size: 0.7rem;
+    }
+
+    .post_user_info h3 {
+        font-size: 0.9rem; /* Smaller font size */
+    }
+
+    .post_writings h3 {
+        margin: 8px;
+    }
+
+    .post_writings p {
+        font-size: 1rem; /* Further reduce title font size */
+        margin: 8px;
+    }
+}

@@ -1,0 +1,20 @@
+.middle_content {
+    width: 100%;
+    max-width: calc(100vw - 760px); /* Full width minus both sidebars */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Align content at the top */
+    padding: 20px; /* Add padding to ensure content is fully visible */
+    margin-top: 40px;
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+    transition: max-width 0.3s ease;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 1600px) {
+    .middle_content {
+        max-width: 100%;
+    }
+}

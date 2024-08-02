@@ -1,0 +1,44 @@
+.total_body {
+    max-width: 800px;
+    width: 100%;
+}
+
+.form_body {
+    display: flex;
+    flex-direction: column;
+    max-width: 800px; /* Max width for larger screens */
+    width: 100%;
+    box-sizing: border-box; /* Include padding in the width calculation */
+    margin: 0 auto; /* Center the form */
+}
+
+.form_body input,
+.form_body textarea {
+    margin: 16px 0;
+    width: 100%; /* Full width for inputs and textarea */
+    padding: 10px; /* Add padding for better appearance */
+    box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+.form_body textarea {
+    height: 300px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.4rem;
+    border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+    .form_body {
+        padding: 5px; /* Further reduce padding for very small screens */
+    }
+
+    .form_body input,
+    .form_body textarea {
+        font-size: 0.9rem; /* Further reduce font size for very small screens */
+        padding: 6px; /* Further reduce padding for very small screens */
+    }
+
+    .form_body textarea {
+        height: 300px; /* Further reduce height for very small screens */
+    }
+}
