@@ -145,7 +145,7 @@ function Profile() {
                 localStorage.removeItem('user');
                 window.location.href = '/login';
             }}>Log out</button>
-            <button onClick={handleSignOutClick}>Sign out</button>
+            <button onClick={handleSignOutClick}>Delete Account</button>
             {showPasswordInput && (
                 <div className="signout-container">
                     <input 
@@ -155,7 +155,7 @@ function Profile() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button onClick={handleSignOutConfirm}>Confirm Sign out</button>
+                    <button onClick={handleSignOutConfirm}>Confirm Delete Account</button>
                 </div>
             )}
             <h2>{user.username}'s posts</h2>
