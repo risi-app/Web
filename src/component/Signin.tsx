@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUser, registerUser } from "../services/UserService";
 
 
 function Signin() {
@@ -22,12 +22,12 @@ function Signin() {
         } else if (pw1 != pw2) {
             alert("비밀번호가 일치하지 않습니다. 다시 한 번 확인해주세요.");
         } else {
-            axios.get(`http://localhost:8080/api/user/${id}`)
+            getUser(id)
             .then(res => {
                 if (res.data) {
                     alert("이미 존재하는 아이디 입니다.");
                 } else {
-                    axios.post("http://localhost:8080/api/user/register", {
+                    registerUser({
                         userId: id,
                         username: id,
                         password: pw1

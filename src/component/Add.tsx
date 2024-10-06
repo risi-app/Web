@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useState, ChangeEvent, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Add.css";
+import { uploadPost } from "../services/PostService";
 
 function Add() {
     const [title, setTitle] = useState("");
@@ -47,18 +47,16 @@ function Add() {
 
     const handlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+    
         const formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
         if (file) {
             formData.append('file', file);
         }
-
+    
         try {
-            const res = await axios.post(`http://localhost:8080/api/post/${localStorage.getItem('user')}`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
+            const res = await uploadPost(localStorage.getItem('user')!, formData); // Use the uploadPost service method
             if (res.status === 200) {
                 navigate('/home');
             }

@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import "./Detail.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { deletePost, getPost, updatePost } from "../services/PostService";
 
 function Detail() {
     const { id } = useParams();
@@ -14,7 +14,8 @@ function Detail() {
     const [file, setFile] = useState<File | null>(null);
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/post/get/${id}`)
+        id &&
+        getPost(id)
             .then(res => {
                 if (res.data) {
                     setPost(res.data);
@@ -36,24 +37,25 @@ function Detail() {
         if (file) {
             formData.append('file', file);
         }
-
-        try {
-            const res = await axios.put(`http://localhost:8080/api/post/update/${id}`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
-            if (res.status === 200) {
-                setPost(res.data);
-                setIsEditing(false);
+    
+        if (id) {
+            try {
+                const res = await updatePost(id, formData); // Use the updatePost service method
+                if (res.status === 200) {
+                    setPost(res.data);
+                    setIsEditing(false);
+                }
+            } catch (err) {
+                console.error("Error updating post!", err);
             }
-        } catch (err) {
-            console.error("Error updating post!", err);
         }
     };
 
     const handleDeleteClick = async () => {
         if (window.confirm("Are you sure you want to delete this post?")) {
             try {
-                await axios.delete(`http://localhost:8080/api/post/delete/${id}`);
+                id &&
+                await deletePost(id);
                 navigate("/home");
             } catch (err) {
                 console.error("Error deleting post!", err);

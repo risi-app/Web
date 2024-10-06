@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import Post from "./Post";
-import axios from "axios";
 import "./Home.css"
+import { getPosts } from "../services/PostService";
 
 function Home() {
 
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/post/get')
+        getPosts()
             .then(res => {
                 res && setPosts(res.data.reverse())
                 console.log(res.data);

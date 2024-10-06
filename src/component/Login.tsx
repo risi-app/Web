@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Login.css";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { checkUser } from "../services/UserService";
 
 function Login() {
 
@@ -24,7 +24,7 @@ function Login() {
             return;
         }
 
-        axios.get(`http://localhost:8080/api/user/check/${id}/${pw}`)
+        checkUser(id, pw)
             .then(res => {
                 console.log(res.data);
                 if (res.data) {

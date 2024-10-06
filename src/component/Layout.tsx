@@ -38,7 +38,7 @@ function Layout() {
             </button>
 
             <div className={`top_bar ${isTopBarVisible ? 'visible' : 'hidden'}`}>
-                RISI
+                <Link to="/home">RISI</Link>
             </div>
 
             <div className={`left_bar ${isLeftBarVisible ? 'visible' : 'hidden'}`}>
@@ -57,12 +57,6 @@ function Layout() {
             <div className="middle_content">
                 <Outlet />
             </div>
-{/* 
-            <div className={`right_bar ${isRightBarVisible ? 'visible' : 'hidden'}`}>
-                <h1>Title</h1>
-                <h2>User Name</h2>
-                <h3>Description</h3>
-            </div> */}
         </div>
     );
 }
