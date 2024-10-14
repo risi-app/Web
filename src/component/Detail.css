@@ -20,6 +20,14 @@
     margin-right: 16px; /* Margin on the right to separate the image and text */
 }
 
+.username_and_bottons {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .post_buttons {
     width: 100%;
     display: flex;

@@ -86,22 +86,26 @@ function Detail() {
                     <Link to={`/profile/${username}`} className="post_user_info_container">
                         <img src={profile ? `http://localhost:8080${profile}` : `https://austinpeopleworks.com/wp-content/uploads/2020/12/blank-profile-picture-973460_1280.png`} />
                     </Link>
-                    <h3>{username}</h3>
-                    {localStorage.getItem('user') === (username || "Admin") && 
-                        <div className="post_buttons">
-                            {isEditing ? (
-                                <>
-                                    <button className="button_blue" onClick={handleSaveClick}>Save</button>
-                                    <button className="button_red" onClick={() => setIsEditing(false)}>Cancel</button>
-                                </>
-                            ) : (
-                                <>
-                                    <button className="button_blue" onClick={handleEditClick}>Edit</button>
-                                    <button className="button_red" onClick={handleDeleteClick}>Delete</button>
-                                </>
-                            )}
+                    <div className="username_and_bottons">
+                        <h3>{username}</h3>
+                        <div>
+                            {localStorage.getItem('user') === (username || "Admin") && 
+                                <div className="post_buttons">
+                                    {isEditing ? (
+                                        <>
+                                            <button className="button_blue" onClick={handleSaveClick}>Save</button>
+                                            <button className="button_red" onClick={() => setIsEditing(false)}>Cancel</button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <button className="button_blue" onClick={handleEditClick}>Edit</button>
+                                            <button className="button_red" onClick={handleDeleteClick}>Delete</button>
+                                        </>
+                                    )}
+                                </div>
+                            }
                         </div>
-                    }
+                    </div>
                 </div>
                 <div className="detail_post_container">
                     <div className="detail_post_info">

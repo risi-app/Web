@@ -10,7 +10,7 @@
     margin-top: 40px;
     box-sizing: border-box; /* Include padding in the element's total width and height */
     transition: max-width 0.3s ease;
-    background: linear-gradient(135deg, #6E7AFF, #9A00FF);
+    background: linear-gradient(135deg, #6E7AFF, #8dcdd6);
     background-attachment: fixed; /* Keep background fixed during scroll */
 }
 
