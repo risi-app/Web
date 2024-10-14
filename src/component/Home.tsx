@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import Post from "./Post";
-import axios from "axios";
 import "./Home.css"
+import { getPosts } from "../services/PostService";
 
 function Home() {
 
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/post/get')
+        getPosts()
             .then(res => {
                 res && setPosts(res.data.reverse())
                 console.log(res.data);
@@ -19,17 +19,17 @@ function Home() {
     
 
     return (
-        <div className="middle_content">
+        <div className="">
+            <br/>
+            <br/>
             {
                 posts.map((post: any) => {
                     const {id, username, profile, title, description, image, likes} = post;
                     return <Post key={id} id={id} username={username} profile={profile} title={title} description={description} image={image} likes={likes}/>
                 })
             }
-            <div>
-                <br/>
-                <br/>
-            </div>
+            <br/>
+            <br/>
         </div>
     )
 }

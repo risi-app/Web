@@ -1,8 +1,8 @@
-import axios from "axios";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import "./Profile.css";
 import Post from "./Post";
 import { useParams } from "react-router-dom";
+import { deleteUser, getUser, updateUser } from "../services/UserService";
 
 function Profile() {
     const { id } = useParams();
@@ -50,16 +50,17 @@ function Profile() {
     };
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/user/${id}`)
-            .then(res => {
-                if (res.data) {
-                    setUser(res.data);
-                    console.log(res.data);
-                    setDescription(res.data.description || "");  // Set the description for the input field
-                    setPreviewUrl(null);
-                }
-            })
-            .catch(err => console.log(err));
+        id &&
+            getUser(id)
+                .then(res => {
+                    if (res.data) {
+                        setUser(res.data);
+                        console.log(res.data);
+                        setDescription(res.data.description || "");  // Set the description for the input field
+                        setPreviewUrl(null);
+                    }
+                })
+                .catch(err => console.log(err));
     }, []);
 
     const handleSave = async () => {
@@ -71,9 +72,7 @@ function Profile() {
         formData.append('description', description);
 
         try {
-            const res = await axios.put(`http://localhost:8080/api/user/update/${localStorage.getItem('user')}`, formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
+            const res = await updateUser(localStorage.getItem('user')!, formData);
             if (res.status === 200) {
                 setUser(res.data);
                 setPreviewUrl(null);  // Clear the preview URL after saving
@@ -98,7 +97,7 @@ function Profile() {
 
     const handleSignOutConfirm = async () => {
         try {
-            await axios.delete(`http://localhost:8080/api/user/delete/${localStorage.getItem('user')}/${password}`);
+            await deleteUser(localStorage.getItem('user')!, password);
             localStorage.removeItem('user');
             window.location.href = '/login';
         } catch (err) {
@@ -109,26 +108,27 @@ function Profile() {
 
     return (
         <div className="body_profile">
-            <img 
-                src={previewUrl || (user.image ? `http://localhost:8080${user.image}` : `https://austinpeopleworks.com/wp-content/uploads/2020/12/blank-profile-picture-973460_1280.png`)} 
-                alt="Profile" 
+            <img
+                className="profile_image"
+                src={previewUrl || (user.image ? `http://localhost:8080${user.image}` : `https://austinpeopleworks.com/wp-content/uploads/2020/12/blank-profile-picture-973460_1280.png`)}
+                alt="Profile"
                 onClick={handleImageClick}
                 style={{ cursor: 'pointer' }}  // Add cursor pointer for better UX
             />
-            <input 
-                type="file" 
-                id="file" 
-                name="file" 
-                ref={refFiles} 
-                onChange={handlerChangeFiles} 
+            <input
+                type="file"
+                id="file"
+                name="file"
+                ref={refFiles}
+                onChange={handlerChangeFiles}
                 style={{ display: 'none' }}  // Hide the file input
             />
             <h1>{user.username}</h1>
             <div className="description-container">
                 {isEditing ? (
-                    <textarea 
-                        value={description} 
-                        onChange={changeDescription} 
+                    <textarea
+                        value={description}
+                        onChange={changeDescription}
                         placeholder="Enter your description"
                         rows={4}
                         cols={50}
@@ -136,22 +136,29 @@ function Profile() {
                 ) : (
                     <p>{description === "" ? "No description" : description}</p>
                 )}
-                <button onClick={() => setIsEditing(!isEditing)}>
-                    {isEditing ? "Cancel" : "Edit description"}
-                </button>
+                {id == localStorage.getItem('user') &&
+                    <button onClick={() => setIsEditing(!isEditing)}>
+                        {isEditing ? "Cancel" : "Edit description"}
+                    </button>
+                }
+
             </div>
-            <button onClick={handleSave}>Save</button>
-            <button onClick={() => {
-                localStorage.removeItem('user');
-                window.location.href = '/login';
-            }}>Log out</button>
-            <button onClick={handleSignOutClick}>Delete Account</button>
+            { id == localStorage.getItem('user') &&
+            <>
+                <button onClick={handleSave}>Save</button>
+                <button onClick={() => {
+                    localStorage.removeItem('user');
+                    window.location.href = '/login';
+                }}>Log out</button>
+                <button onClick={handleSignOutClick}>Delete Account</button>
+            </>
+            }
             {showPasswordInput && (
                 <div className="signout-container">
-                    <input 
+                    <input
                         className="password_check"
-                        type="password" 
-                        placeholder="Enter your password" 
+                        type="password"
+                        placeholder="Enter your password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
@@ -161,8 +168,8 @@ function Profile() {
             <h2>{user.username}'s posts</h2>
             {
                 user.posts && user.posts.slice().reverse().map((post: any) => {
-                    const {id, username, profile, title, description, image, likes} = post;
-                    return <Post key={id} id={id} username={username} profile={profile} title={title} description={description} image={image} likes={likes}/>
+                    const { id, username, profile, title, description, image, likes } = post;
+                    return <Post key={id} id={id} username={username} profile={profile} title={title} description={description} image={image} likes={likes} />
                 })
             }
         </div>
