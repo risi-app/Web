@@ -15,14 +15,14 @@ h2 {
     margin-top: 48px;
 }
 
-img {
+.profile_image {
     object-fit: cover;
     width: 200px;
     height: 200px;
     border-radius: 50%;
 }
 
-button {
+.body_profile button {
     width: 300px;
     margin: 6px;
     padding: 10px 0;

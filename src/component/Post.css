@@ -1,70 +1,91 @@
-.post_body {
+.post_container {
     max-width: 800px;
     width: 100%;
-    padding: 48px 20px;
+    padding-bottom: 20px; /* Add padding to the bottom of the container */
 }
 
+.post_body {
+    padding: 24px 20px;
+    background: linear-gradient(135deg, #f3f3f3, #ffffff); /* Soft gradient background */
+    border-radius: 12px;
+    margin: 20px 0;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.05); /* Softer, lighter shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* User Info Section */
 .post_user_info {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    width: 100%;
-    max-width: 800px;
-    height: fit-content;
-    background-color: gray;
-    padding: 16px;
-    box-sizing: border-box;
-    border-radius: 10px 10px 0 0 ;
+    margin-bottom: 16px;
+    border-radius: 16px;
 }
 
 .post_user_info img {
     object-fit: cover;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
+    border-radius: 50%; /* Circular profile images */
     margin-right: 16px;
-}
-
-.option {
-    float: right;
-    text-align: right;
-    width:100%;
+    /* border: 3px solid #9A00FF; Vibrant border around profile image */
 }
 
 .post_user_info h3 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    color: #333;
+    font-weight: bold;
+    transition: color 0.3s ease;
 }
 
-.post_info {
-    flex-wrap: wrap;
+.post_user_info h3:hover {
+    color: #9A00FF; /* Change username color on hover */
+}
+
+/* Post Content Section */
+.post_info img {
+    object-fit: contain;
     width: 100%;
+    height: 500px;
+    margin-bottom: 16px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for images */
+    transition: transform 0.3s ease;
 }
 
-.post_image img {
-    object-fit: cover;
-    width: 100%;
-    height: auto;
-    border-radius: 0 0 10px 10px;
+.post_info img:hover {
+    transform: scale(1.07); /* Zoom-in effect on hover */
 }
 
+/* Post Text Section */
 .post_writings {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    max-width: 740px;
-    box-sizing: border-box;
     font-size: 1.2rem;
+    color: #555;
 }
 
 .post_writings h3 {
-    margin-top: 0;
+    margin: 0;
     margin-bottom: 8px;
+    font-size: 1.5rem;
+    color: #333;
+    transition: color 0.3s ease;
 }
 
+.post_writings h3:hover {
+    color: #6E7AFF; /* Title color changes on hover */
+}
 
+.post_writings p {
+    margin: 0;
+    color: #777; /* Softer gray for descriptions */
+}
+
+/* Mobile adjustments */
 @media (max-width: 600px) {
-    .post_user_info {
-        padding: 0 8px;
+    .post_body {
+        padding: 16px 10px;
     }
 
     .post_user_info img {
@@ -72,11 +93,7 @@
         height: 40px;
     }
 
-    .post_user_info h3 {
-        font-size: 0.9rem;
-    }
-
-    .post_writings {
+    .post_writings h3, .post_writings p {
         font-size: 1rem;
     }
 }

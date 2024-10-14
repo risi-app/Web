@@ -109,6 +109,7 @@ function Profile() {
     return (
         <div className="body_profile">
             <img
+                className="profile_image"
                 src={previewUrl || (user.image ? `http://localhost:8080${user.image}` : `https://austinpeopleworks.com/wp-content/uploads/2020/12/blank-profile-picture-973460_1280.png`)}
                 alt="Profile"
                 onClick={handleImageClick}

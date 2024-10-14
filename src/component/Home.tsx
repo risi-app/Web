@@ -19,17 +19,17 @@ function Home() {
     
 
     return (
-        <div className="middle_content">
+        <div className="">
+            <br/>
+            <br/>
             {
                 posts.map((post: any) => {
                     const {id, username, profile, title, description, image, likes} = post;
                     return <Post key={id} id={id} username={username} profile={profile} title={title} description={description} image={image} likes={likes}/>
                 })
             }
-            <div>
-                <br/>
-                <br/>
-            </div>
+            <br/>
+            <br/>
         </div>
     )
 }

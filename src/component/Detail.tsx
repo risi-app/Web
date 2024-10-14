@@ -1,7 +1,8 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import "./Detail.css";
 import { useEffect, useState } from "react";
 import { deletePost, getPost, updatePost } from "../services/PostService";
+import "./Detail.css";
 
 function Detail() {
     const { id } = useParams();
@@ -78,43 +79,50 @@ function Detail() {
     const { profile, username, image } = post;
 
     return (
-        <div className="detail_post_body">
-            <div className="post_user_info">
-                <img src={profile ? `http://localhost:8080${profile}` : `https://austinpeopleworks.com/wp-content/uploads/2020/12/blank-profile-picture-973460_1280.png`} />
-                <h3>{username}</h3>
-                {localStorage.getItem('user') === (username || "Admin") && 
-                    <div className="post_buttons">
-                        {isEditing ? (
-                            <>
-                                <button className="button_blue" onClick={handleSaveClick}>저장</button>
-                                <button className="button_red" onClick={() => setIsEditing(false)}>취소</button>
-                            </>
-                        ) : (
-                            <>
-                                <button className="button_blue" onClick={handleEditClick}>수정</button>
-                                <button className="button_red" onClick={handleDeleteClick}>삭제</button>
-                            </>
-                        )}
-                    </div>
-                }
-            </div>
-            <div className="post_info">
-                <div className="post_image">
-                    {image && <img src={`http://localhost:8080${image}`} alt="Uploaded file" />}
+        <div className="detail_post_body_container">
+            <br/>
+            <div className="detail_post_body">
+                <div className="post_user_info">
+                    <Link to={`/profile/${username}`} className="post_user_info_container">
+                        <img src={profile ? `http://localhost:8080${profile}` : `https://austinpeopleworks.com/wp-content/uploads/2020/12/blank-profile-picture-973460_1280.png`} />
+                    </Link>
+                    <h3>{username}</h3>
+                    {localStorage.getItem('user') === (username || "Admin") && 
+                        <div className="post_buttons">
+                            {isEditing ? (
+                                <>
+                                    <button className="button_blue" onClick={handleSaveClick}>Save</button>
+                                    <button className="button_red" onClick={() => setIsEditing(false)}>Cancel</button>
+                                </>
+                            ) : (
+                                <>
+                                    <button className="button_blue" onClick={handleEditClick}>Edit</button>
+                                    <button className="button_red" onClick={handleDeleteClick}>Delete</button>
+                                </>
+                            )}
+                        </div>
+                    }
                 </div>
-                <div className="post_writings">
-                    {isEditing ? (
-                        <>
-                            <input type="text" value={title} onChange={handleTitleChange} />
-                            <textarea value={description} onChange={handleDescriptionChange} rows={4} />
-                            <input type="file" onChange={handleFileChange} />
-                        </>
-                    ) : (
-                        <>
-                            <h3>{title}</h3>
-                            <p>{description}</p>
-                        </>
-                    )}
+                <div className="detail_post_container">
+                    <div className="detail_post_info">
+                        <div className="detail_post_image">
+                            {image && <img src={`http://localhost:8080${image}`} alt="Uploaded file" />}
+                        </div>
+                        <div className="post_writings">
+                            {isEditing ? (
+                                <>
+                                    <input type="text" value={title} onChange={handleTitleChange} />
+                                    <textarea value={description} onChange={handleDescriptionChange} rows={4} />
+                                    <input type="file" onChange={handleFileChange} />
+                                </>
+                            ) : (
+                                <>
+                                    <h3>{title}</h3>
+                                    <p>{description}</p>
+                                </>
+                            )}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

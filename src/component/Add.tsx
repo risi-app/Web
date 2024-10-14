@@ -71,7 +71,7 @@ function Add() {
             <h1>Add</h1>
             <form className="form_body" onSubmit={handlerSubmit} encType="multipart/form-data">
                 <input type="text" name="title" value={title} onChange={changeTitle} />
-                <textarea name="description" value={description} onChange={changeDescription} maxLength={200} />
+                <textarea name="description" value={description} onChange={changeDescription} />
                 {description.length}
                 <input type="file" id="file" name="file" ref={refFiles} onChange={handlerChangeFiles} />
                 <input type="submit" id="submit" value="Upload"/>

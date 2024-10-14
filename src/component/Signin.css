@@ -7,7 +7,7 @@
 }
 
 /* Background and Layout */
-.login-body {
+.signin-body {
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -16,7 +16,7 @@
     background: linear-gradient(135deg, #6E7AFF, #9A00FF);
 }
 
-.login-centerbox {
+.signin-centerbox {
     background-color: white;
     padding: 40px;
     border-radius: 15px;
@@ -28,14 +28,14 @@
 }
 
 /* Logo and form elements */
-.login-logo {
+.signin-logo {
     font-size: 36px;
     font-weight: bold;
     color: #9A00FF;
     margin-bottom: 30px;
 }
 
-.login-form {
+.signin-form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -62,14 +62,14 @@ input:focus {
 }
 
 /* Buttons */
-.login-buttons {
+.signin-buttons {
     display: flex;
     width: 100%;
     justify-content: space-between;
     margin-top: 20px;
 }
 
-.login-btn, .signin-btn {
+.signin-btn, .cancel-btn {
     width: 48%;
     padding: 12px;
     font-size: 16px;
@@ -80,21 +80,21 @@ input:focus {
     transition: background-color 0.3s ease;
 }
 
-.login-btn {
+.signin-btn {
     background-color: #9A00FF;
     color: white;
 }
 
-.login-btn:hover {
+.signin-btn:hover {
     background-color: #6E7AFF;
 }
 
-.signin-btn {
+.cancel-btn {
     background-color: #E0E0E0;
     color: #333;
 }
 
-.signin-btn:hover {
+.cancel-btn:hover {
     background-color: #C0C0C0;
 }
 
