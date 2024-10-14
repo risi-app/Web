@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUser, registerUser } from "../services/UserService";
-import "./Signin.css";
+import "./Signup.css";
 
 function Signin() {
     const [id, setId] = useState("");
