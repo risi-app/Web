@@ -1,38 +1,76 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { io, Socket } from 'socket.io-client';
+
+interface GestureResponse {
+  action: 'adjust_brightness' | 'adjust_volume';
+  value: number;
+}
 
 function HandControl() {
+  const [socket, setSocket] = useState<Socket | null>(null);
+  const [currentMode, setCurrentMode] = useState<string>('IDLE');
+  const [brightness, setBrightness] = useState<number>(50);
+  const [volume, setVolume] = useState<number>(50);
+
   useEffect(() => {
-    // Use correct type for videoElement (HTMLImageElement)
-    const videoElement = document.getElementById('video') as HTMLImageElement | null;
+    const newSocket = io('http://localhost:5000');
+    setSocket(newSocket);
 
-    if (videoElement) {
-      videoElement.src = 'http://localhost:5000/video_feed';  // Set video feed URL if the element exists
-    }
+    newSocket.on('connect', () => {
+      console.log('Connected to server');
+    });
 
-    // Create WebSocket connection
-    const socket = new WebSocket('ws://localhost:5000/socket.io/?EIO=3&transport=websocket');
-
-    socket.onopen = () => {
-      console.log('WebSocket Connection Established');
-    };
-
-    socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
+    newSocket.on('gesture_response', (data: GestureResponse) => {
       if (data.action === 'adjust_brightness') {
-        console.log(`Adjust Brightness: ${data.value}`);
+        setBrightness(data.value);
       } else if (data.action === 'adjust_volume') {
-        console.log(`Adjust Volume: ${data.value}`);
+        setVolume(data.value);
       }
-    };
+    });
 
-    // Clean up WebSocket connection when component unmounts
-    return () => socket.close();
+    return () => {
+      newSocket.disconnect();
+    };
   }, []);
 
   return (
-    <div>
-      <h1>Hand Gesture Control</h1>
-      <img id="video" alt="Hand Detection Feed" />
+    <div className='hand_gesture_control'>
+      <h2>Advanced Hand Gesture Control</h2>
+      <img 
+        id="video" 
+        src='http://localhost:5000/video_feed'
+        alt="Hand Detection Feed" 
+        width={300}
+      />
+      <div>
+        <p>Current Mode: {currentMode}</p>
+        <p>Brightness: {brightness.toFixed(2)}%</p>
+        <p>Volume: {volume.toFixed(2)}%</p>
+      </div>
+      <div>
+        <h3>Instructions:</h3>
+        <ul>
+          <li>Extend only your pinky finger to enter IDLE mode (all functions stop)</li>
+          <li>Extend only your index finger to enter MOUSE control mode</li>
+          <li>Extend index and middle fingers to enter BRIGHTNESS/VOLUME control mode</li>
+          <li>There is a 1.2-second delay for all gesture detections</li>
+          <li>In MOUSE mode:</li>
+          <ul>
+            <li>Move your wrist within the green rectangle to control the cursor</li>
+            <li>Quickly touch thumb and index finger tips together for a single click</li>
+            <li>Double-click by quickly touching thumb and index finger tips twice</li>
+            <li>Triple-click for a right-click</li>
+            <li>Touch and hold thumb and index finger tips, then move to drag</li>
+            <li>Single click, then touch and hold thumb and index finger tips to scroll</li>
+          </ul>
+          <li>In CONTROL mode:</li>
+          <ul>
+            <li>Adjust the distance between thumb and index finger tips</li>
+            <li>Left side of the screen controls brightness</li>
+            <li>Right side of the screen controls volume</li>
+          </ul>
+        </ul>
+      </div>
     </div>
   );
 }

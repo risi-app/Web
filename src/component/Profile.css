@@ -7,11 +7,11 @@
     align-items: center;
 }
 
-h1 {
+.body_profile h1 {
     margin: 16px;
 }
 
-h2 {
+.body_profile h2 {
     margin-top: 48px;
 }
 

@@ -23,6 +23,10 @@
     border-radius: 16px;
 }
 
+.post_user_info h3:hover {
+    color: rgb(100, 100, 100) !important;
+}
+
 .post_user_info img {
     object-fit: cover;
     width: 50px;

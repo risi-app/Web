@@ -76,7 +76,7 @@
     max-height: 500px;
     margin-bottom: 16px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for images */
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease-in-out;
 }
 
 .detail_post_info img:hover {
@@ -102,6 +102,30 @@
     margin-top: 0;
     margin-bottom: 8px; /* Space between title and description */
 }
+
+.comments_section {
+    margin-top: 20px;
+}
+
+.comments_section h3, p {
+    color: black;
+}
+
+
+.comment {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.comment_actions {
+    margin-top: 5px;
+}
+
+.comment_actions button {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
 
 
 

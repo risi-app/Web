@@ -70,7 +70,9 @@ function Add() {
         <div className="total_body">
             <h1>Add</h1>
             <form className="form_body" onSubmit={handlerSubmit} encType="multipart/form-data">
+                <h2>Title</h2>
                 <input type="text" name="title" value={title} onChange={changeTitle} />
+                <h2>Content</h2>
                 <textarea name="description" value={description} onChange={changeDescription} />
                 {description.length}
                 <input type="file" id="file" name="file" ref={refFiles} onChange={handlerChangeFiles} />

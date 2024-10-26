@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import HandControl from './HandControl';
 import './Layout.css';
 
 function Layout() {
@@ -46,6 +47,7 @@ function Layout() {
                     <p>Welcome, {localStorage.getItem('user')}!</p>
                     <Link to="/add" onClick={() => setIsLeftBarVisible(false)}><h2>Add</h2></Link>
                     <Link to={`/profile/${localStorage.getItem('user')}`} onClick={() => setIsLeftBarVisible(false)}><h2>Profile</h2></Link>
+                    {/* <HandControl/> */}
                 </div>
                 <div className="left_bar_bottom">
                     <Link to="/login" onClick={() => setIsLeftBarVisible(false)}><h2>Logout</h2></Link>
