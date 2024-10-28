@@ -6,9 +6,12 @@ interface GestureResponse {
   value: number;
 }
 
+function mapRange(value: number, oldMin: number, oldMax: number, newMin: number, newMax: number) {
+  return ((value - oldMin) / (oldMax - oldMin)) * (newMax - newMin) + newMin;
+}
+
 function HandControl() {
   const [socket, setSocket] = useState<Socket | null>(null);
-  const [currentMode, setCurrentMode] = useState<string>('IDLE');
   const [brightness, setBrightness] = useState<number>(50);
   const [volume, setVolume] = useState<number>(50);
 
@@ -42,32 +45,29 @@ function HandControl() {
         alt="Hand Detection Feed" 
         width={300}
       />
-      <div>
-        <p>Current Mode: {currentMode}</p>
-        <p>Brightness: {brightness.toFixed(2)}%</p>
-        <p>Volume: {volume.toFixed(2)}%</p>
+      <div className='brightness_and_volume'>
+        Brightness: {brightness.toFixed(2)}%
+        <br/>
+        Volume: {mapRange(volume, -66, 0, 0, 100).toFixed(0)}%
       </div>
+      <br/>
       <div>
         <h3>Instructions:</h3>
+        
         <ul>
-          <li>Extend only your pinky finger to enter IDLE mode (all functions stop)</li>
-          <li>Extend only your index finger to enter MOUSE control mode</li>
-          <li>Extend index and middle fingers to enter BRIGHTNESS/VOLUME control mode</li>
-          <li>There is a 1.2-second delay for all gesture detections</li>
-          <li>In MOUSE mode:</li>
+          <li>새끼손가락을 펴면 IDLE 모드 진입 (모든 기능 멈춤)</li>
+          <br/>
+          <li>마우스 조절 모드: 검지손가락 펴기</li>
           <ul>
-            <li>Move your wrist within the green rectangle to control the cursor</li>
-            <li>Quickly touch thumb and index finger tips together for a single click</li>
-            <li>Double-click by quickly touching thumb and index finger tips twice</li>
-            <li>Triple-click for a right-click</li>
-            <li>Touch and hold thumb and index finger tips, then move to drag</li>
-            <li>Single click, then touch and hold thumb and index finger tips to scroll</li>
+            초록색 사각형 안쪽에서 손목을 움직여 마우스 이동<br/>
+            클릭: 엄지, 검지손가락을 빠르게 붙였다 떼기<br/>
+            드래그: 엄지, 검지손가락을 붙인 상태로 이동<br/>
           </ul>
-          <li>In CONTROL mode:</li>
+          <br/>
+          <li>밝기/소리 조절 모드: 검지와 중지손가락 펴기</li>
           <ul>
-            <li>Adjust the distance between thumb and index finger tips</li>
-            <li>Left side of the screen controls brightness</li>
-            <li>Right side of the screen controls volume</li>
+            소리: 오른손 엄지, 검지, 중지 세 손가락을 이용 (화면 오른쪽 부분에서)<br/>
+            밝기: 왼손 엄지, 검지, 중지 세 손가락을 이용 (화면 왼쪽 부분에서)<br/>
           </ul>
         </ul>
       </div>

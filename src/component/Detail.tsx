@@ -26,22 +26,6 @@ function Detail() {
         liked?: boolean;
     }
 
-    useEffect(() => {
-        if (id) {
-            getPost(id)
-                .then(res => {
-                    if (res.data) {
-                        console.log(res.data)
-                        setPost(res.data);
-                        setTitle(res.data.title);
-                        setDescription(res.data.description);
-                        setComments(res.data.comments);
-                    }
-                })
-                .catch(err => console.log(err));
-        }
-    }, [id]);
-
     // Set up WebSocket for finger distance detection
     useEffect(() => {
         const socket = new WebSocket('ws://localhost:5000/socket.io/?EIO=3&transport=websocket');
@@ -115,10 +99,14 @@ function Detail() {
             try {
                 const res = await addComment(id, userId, newComment);
                 if (res.status === 200) {
+                    // Get the user's profile image from localStorage or make an API call
+                    const userProfileImg = localStorage.getItem('userProfile'); // Assuming you store user profile in localStorage
+                    
                     const newCommentObj = {
                         id: res.data.id,
                         content: newComment,
-                        username: userId
+                        username: userId,
+                        profileImg: userProfileImg // Add the profile image to the new comment
                     };
                     setComments([...comments, newCommentObj]);
                     setNewComment("");
@@ -129,33 +117,12 @@ function Detail() {
         }
     };
     
-
-    const handleEditComment = async (commentId: string, updatedComment: string) => {
-        try {
-            const res = await editComment(commentId, updatedComment);
-            if (res.status === 200) {
-                setComments(comments.map(comment => comment.id === commentId ? res.data : comment));
-            }
-        } catch (err) {
-            console.error("Error editing comment!", err);
-        }
-    };
-    
     const handleDeleteComment = async (commentId: string) => {
         try {
             await deleteComment(commentId);
             setComments(comments.filter(comment => comment.id !== commentId));  // Remove deleted comment from state
         } catch (err) {
             console.error("Error deleting comment!", err);
-        }
-    };
-
-    const handleLikeComment = async (commentId: string) => {
-        try {
-            await likeComment(commentId);
-            setComments(comments.map(comment => comment.id === commentId ? { ...comment, liked: !comment.liked } : comment));
-        } catch (err) {
-            console.error("Error liking comment!", err);
         }
     };
 
@@ -185,7 +152,23 @@ function Detail() {
         setEditingCommentId(null);
         setEditingCommentContent("");
     };
+
     
+    useEffect(() => {
+        if (id) {
+            getPost(id)
+                .then(res => {
+                    if (res.data) {
+                        console.log(res.data);
+                        setPost(res.data);
+                        setTitle(res.data.title);
+                        setDescription(res.data.description);
+                        setComments(res.data.comments);
+                    }
+                })
+                .catch(err => console.log(err));
+        }
+    }, []);
 
     const { profile, username, image } = post;
 
@@ -242,47 +225,38 @@ function Detail() {
                 
 
                 <div className="comments_section">
-                    <h3>Comments</h3>
+                    <h3 className='comments_h3'>Comments</h3>
                     
                     {comments.map(comment => (
                         <div key={comment.id} className="comment">
-                            {editingCommentId === comment.id ? (
-                                <div className="comment-edit-form">
-                                    <textarea
+                            <div className='comment_container'>
+                                <Link to={`/profile/${comment.username}`} className='comment_user_info'>
+                                    <img src={comment.profileImg ? `http://localhost:8080${comment.profileImg}` : `https://austinpeopleworks.com/wp-content/uploads/2020/12/blank-profile-picture-973460_1280.png`}/>
+                                    <p>{comment.username}</p>
+                                </Link>
+                                {editingCommentId === comment.id ? (
+                                    <input
                                         value={editingCommentContent}
                                         onChange={(e) => setEditingCommentContent(e.target.value)}
-                                        className="comment-edit-textarea"
-                                        rows={3}
+                                        className="comment_edit_input"
                                     />
-                                    <div className="comment-edit-buttons">
-                                        <button 
-                                            className="button_blue"
-                                            onClick={() => handleEditCommentSave(comment.id)}
-                                        >
-                                            Save
-                                        </button>
-                                        <button 
-                                            className="button_red"
-                                            onClick={handleEditCommentCancel}
-                                        >
-                                            Cancel
-                                        </button>
-                                    </div>
+                                ) : (
+                                    <p>{comment.content}</p>
+                                )}
+                            </div>
+                            {editingCommentId === comment.id ? (
+                                <div className="comment_edit_buttons">
+                                    <img src='/src/assets/save.png' width={35} height={35} onClick={() => handleEditCommentSave(comment.id)}/>
+                                    <img src='/src/assets/image.png' width={25} height={25} onClick={handleEditCommentCancel}/>
                                 </div>
                             ) : (
                                 <>
-                                    <p>{comment.username}: {comment.content}</p>
-                                    
                                     <div className="comment_actions">
                                         
                                         {userId === comment.username && (
                                             <>
-                                                <button onClick={() => handleEditCommentClick(comment)}>
-                                                    Edit
-                                                </button>
-                                                <button onClick={() => handleDeleteComment(comment.id)}>
-                                                    Delete
-                                                </button>
+                                                <img src='/src/assets/pen.png' width={30} onClick={() => handleEditCommentClick(comment)}/>
+                                                <img src='/src/assets/delete.png' width={30} onClick={() => handleDeleteComment(comment.id)}/>
                                             </>
                                         )}
                                     </div>
@@ -291,13 +265,15 @@ function Detail() {
                         </div>
                     ))}
                     
-                    <input
-                        type="text"
-                        value={newComment}
-                        onChange={(e) => setNewComment(e.target.value)}
-                        placeholder="Write a comment..."
-                    />
-                    <button onClick={handleAddComment}>Add Comment</button>
+                    <div className='comment_add_box'>
+                        <input
+                            type="text"
+                            value={newComment}
+                            onChange={(e) => setNewComment(e.target.value)}
+                            placeholder="Write a comment..."
+                        />
+                        <button onClick={handleAddComment}>Add Comment</button>
+                    </div>
                 </div>
             </div>
         </div>
