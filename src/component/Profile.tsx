@@ -49,25 +49,17 @@ function Profile() {
         }
     };
 
-    useEffect(() => {
-        id &&
-            getUser(id)
-                .then(res => {
-                    if (res.data) {
-                        setUser(res.data);
-                        console.log(res.data);
-                        setDescription(res.data.description || "");  // Set the description for the input field
-                        setPreviewUrl(null);
-                    }
-                })
-                .catch(err => console.log(err));
-    }, [id]);
-
     const handleSave = async () => {
         const formData = new FormData();
 
+        // Only append file if it exists and hasn't been consumed
         if (file) {
             formData.append('file', file);
+            // Clear the file state after appending
+            setFile(null);
+            if (refFiles.current) {
+                refFiles.current.value = "";
+            }
         }
         formData.append('description', description);
 
@@ -106,6 +98,20 @@ function Profile() {
             alert("Different password");
         }
     };
+
+    useEffect(() => {
+        id &&
+            getUser(id)
+                .then(res => {
+                    if (res.data) {
+                        setUser(res.data);
+                        console.log(res.data);
+                        setDescription(res.data.description || "");  // Set the description for the input field
+                        setPreviewUrl(null);
+                    }
+                })
+                .catch(err => console.log(err));
+    }, [id,]);
 
     return (
         <div className="body_profile">

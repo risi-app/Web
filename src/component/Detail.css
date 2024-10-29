@@ -129,7 +129,11 @@
 }
 
 .comment p {
-    width: 75%
+    width: 100%
+}
+
+.comment p:hover {
+    color: #6E7AFF;
 }
 
 .comment_container {

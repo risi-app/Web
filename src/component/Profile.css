@@ -45,6 +45,12 @@
     margin-bottom: 48px;
 }
 
+.description-container p {
+    max-width: 500px;
+    color: black;
+    font-size: 20px;
+}
+
 .description-container textarea {
     width: 100%;
     max-width: 500px;

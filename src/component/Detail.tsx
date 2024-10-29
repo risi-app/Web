@@ -178,7 +178,7 @@ function Detail() {
             <div className="detail_post_body">
                 <div className="post_user_info">
                     <Link to={`/profile/${username}`} className="post_user_info_container">
-                        <img src={profile ? `http://localhost:8080${profile}` : `https://austinpeopleworks.com/wp-content/uploads/2020/12/blank-profile-picture-973460_1280.png`} />
+                        <img src={`http://localhost:8080${profile}`} />
                     </Link>
                     <div className="username_and_bottons">
                         <h3>{username}</h3>
@@ -231,7 +231,7 @@ function Detail() {
                         <div key={comment.id} className="comment">
                             <div className='comment_container'>
                                 <Link to={`/profile/${comment.username}`} className='comment_user_info'>
-                                    <img src={comment.profileImg ? `http://localhost:8080${comment.profileImg}` : `https://austinpeopleworks.com/wp-content/uploads/2020/12/blank-profile-picture-973460_1280.png`}/>
+                                    <img src={`http://localhost:8080${comment.profileImg}`}/>
                                     <p>{comment.username}</p>
                                 </Link>
                                 {editingCommentId === comment.id ? (
