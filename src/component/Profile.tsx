@@ -61,7 +61,7 @@ function Profile() {
                     }
                 })
                 .catch(err => console.log(err));
-    }, []);
+    }, [id]);
 
     const handleSave = async () => {
         const formData = new FormData();
@@ -77,6 +77,7 @@ function Profile() {
                 setUser(res.data);
                 setPreviewUrl(null);  // Clear the preview URL after saving
                 setIsEditing(false);  // Exit edit mode
+                localStorage.setItem('userProfile', res.data.image);
                 alert("Profile updated successfully!");
             }
         } catch (err) {

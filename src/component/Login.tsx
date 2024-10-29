@@ -29,6 +29,7 @@ function Login() {
                 if (res.data) {
                     const token = res.data.token;
                     localStorage.setItem('token', token);
+                    localStorage.setItem('userProfile', res.data.image);
                     navigate('/home');
                     localStorage.setItem('user', id);
                 } else {
