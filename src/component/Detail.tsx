@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from "react-router-dom";
 import "./Detail.css";
 import { deletePost, getPost, updatePost } from "../services/PostService";
-import { addComment, editComment, deleteComment, likeComment } from '../services/CommentService';
+import { addComment, editComment, deleteComment } from '../services/CommentService';
 
 function Detail() {
     const { id } = useParams();

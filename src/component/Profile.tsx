@@ -61,7 +61,7 @@ function Profile() {
                     }
                 })
                 .catch(err => console.log(err));
-    }, []);
+    }, [id]);
 
     const handleSave = async () => {
         const formData = new FormData();

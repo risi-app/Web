@@ -29,8 +29,3 @@ export const editComment = (commentId: string, comment: string) => {
 export const deleteComment = (commentId: string) => {
   return axios.delete(`${REST_API_COMMENT_URL}/delete/${commentId}`);
 };
-
-// Function to like a comment
-export const likeComment = (commentId: string) => {
-  return axios.post(`${REST_API_COMMENT_URL}/like/${commentId}`);
-};

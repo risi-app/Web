@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { io, Socket } from 'socket.io-client';
+import { io } from 'socket.io-client';
 
 interface GestureResponse {
   action: 'adjust_brightness' | 'adjust_volume';
@@ -11,13 +11,11 @@ function mapRange(value: number, oldMin: number, oldMax: number, newMin: number,
 }
 
 function HandControl() {
-  const [socket, setSocket] = useState<Socket | null>(null);
   const [brightness, setBrightness] = useState<number>(50);
   const [volume, setVolume] = useState<number>(50);
 
   useEffect(() => {
     const newSocket = io('http://localhost:5000');
-    setSocket(newSocket);
 
     newSocket.on('connect', () => {
       console.log('Connected to server');
