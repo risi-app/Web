@@ -37,8 +37,12 @@
 }
 
 .top_bar:hover {
-    background-color: #3B4A5A; /* Hover effect */
+    background-color: #8dcdd6; /* Hover effect */
     cursor: pointer;
+}
+
+.top_bar a:hover {
+    color: white;
 }
 
 /* Side Bars */
@@ -81,7 +85,7 @@
 }
 
 .left_bar_top h1:hover, h2:hover, p:hover {
-    color: #6E7AFF;
+    color: #8dcdd6;
 }
 
 .welcome_message {
@@ -95,7 +99,7 @@
 }
 
 .left_bar_bottom h2:hover {
-    color: #9A00FF; /* Highlight color */
+    color: #8dcdd6; /* Highlight color */
 }
 
 
@@ -136,7 +140,7 @@
 }
 
 .right_bar_top h1:hover, h2:hover, p:hover {
-    color: #6E7AFF;
+    color: #8dcdd6;
 }
 
 .welcome_message {

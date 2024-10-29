@@ -13,7 +13,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #6E7AFF, #9A00FF);
+    background: linear-gradient(135deg, #6E7AFF, #8dcdd6);
 }
 
 .login-centerbox {
@@ -31,7 +31,7 @@
 .login-logo {
     font-size: 36px;
     font-weight: bold;
-    color: #9A00FF;
+    color: #8dcdd6;
     margin-bottom: 30px;
 }
 
@@ -81,7 +81,7 @@ input:focus {
 }
 
 .login-btn {
-    background-color: #9A00FF;
+    background-color: #8dcdd6;
     color: white;
 }
 
