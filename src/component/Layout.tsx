@@ -4,7 +4,6 @@ import HandControl from './HandControl';
 import './Layout.css';
 
 function Layout() {
-    const [isTopBarVisible, setIsTopBarVisible] = useState(true);
     const [isLeftBarVisible, setIsLeftBarVisible] = useState(true);
 
     useEffect(() => {
@@ -13,12 +12,6 @@ function Layout() {
                 setIsLeftBarVisible(false);
             } else {
                 setIsLeftBarVisible(true);
-            }
-
-            if (window.innerWidth > 900) {
-                setIsTopBarVisible(false);
-            } else {
-                setIsTopBarVisible(true);
             }
         };
 
@@ -37,7 +30,7 @@ function Layout() {
                 {isLeftBarVisible ? "X" : "☰"}
             </button>
 
-            <div className={`top_bar ${isTopBarVisible ? 'visible' : 'hidden'}`}>
+            <div className='top_bar'>
                 <Link to="/home">RISI</Link>
             </div>
 
